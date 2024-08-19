@@ -14,10 +14,11 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredPassword = '';
   void _submit() {
     final isValid = _formKey.currentState?.validate();
-    if (!isValid!) {
-      return;
+    if (isValid!) {
+      _formKey.currentState?.save();
+      print(_enteredEmail);
+      print(_enteredPassword);
     }
-    _formKey.currentState?.save();
   }
 
   @override
@@ -45,6 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Form(
+                      key: _formKey,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -83,9 +85,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                           const SizedBox(height: 12),
                           ElevatedButton(
-                            onPressed: () {
-                              // submit the form
-                            },
+                            onPressed: _submit,
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context)
                                     .colorScheme
