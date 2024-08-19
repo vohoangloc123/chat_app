@@ -8,7 +8,18 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  var _isLogin = true;
+  var _isLogin = true; // create a variable to store the current state
+  final _formKey = GlobalKey<FormState>(); // create a global key
+  var _enteredEmail = '';
+  var _enteredPassword = '';
+  void _submit() {
+    final isValid = _formKey.currentState?.validate();
+    if (!isValid!) {
+      return;
+    }
+    _formKey.currentState?.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +56,30 @@ class _AuthScreenState extends State<AuthScreen> {
                             autocorrect: false, // disable auto-correct
                             textCapitalization: TextCapitalization
                                 .none, // disable auto-capitalization
+                            validator: (value) {
+                              if (value == null ||
+                                  value.trim().isEmpty ||
+                                  !value.contains('@') ||
+                                  !value.contains('.')) {
+                                return 'Please enter a valid email address.';
+                              }
+                              return null; // return null if the value is valid
+                            },
+                            onSaved: (newValue) => _enteredEmail = newValue!,
                           ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: 'Password'),
                             obscureText: true, // hide text,
+                            validator: (value) {
+                              if (value == null ||
+                                  value.trim().isEmpty ||
+                                  value.length < 6) {
+                                return 'Please must be atleast 6 characters long.';
+                              }
+                              return null; // return null if the value is valid
+                            },
+                            onSaved: (newValue) => _enteredPassword = newValue!,
                           ),
                           const SizedBox(height: 12),
                           ElevatedButton(
