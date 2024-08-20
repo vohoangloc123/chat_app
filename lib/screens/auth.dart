@@ -20,6 +20,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredEmail = '';
   var _enteredPassword = '';
   File? _selectedImage;
+  var _isAuthenticating = false;
   void _submit() async {
     final isValid = _formKey.currentState?.validate();
     print("image path: $_selectedImage");
@@ -32,6 +33,9 @@ class _AuthScreenState extends State<AuthScreen> {
       return;
     }
     _formKey.currentState?.save();
+    setState(() {
+      _isAuthenticating = true;
+    });
     if (_isLogin) {
       // login
       try {
@@ -68,6 +72,9 @@ class _AuthScreenState extends State<AuthScreen> {
             content: Text(error.message ?? 'Authentication failed'),
           ),
         );
+        setState(() {
+          _isAuthenticating = true;
+        });
       }
     }
   }
@@ -141,14 +148,17 @@ class _AuthScreenState extends State<AuthScreen> {
                             onSaved: (newValue) => _enteredPassword = newValue!,
                           ),
                           const SizedBox(height: 12),
-                          ElevatedButton(
-                            onPressed: _submit,
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context)
-                                    .colorScheme
-                                    .primaryContainer),
-                            child: Text(_isLogin ? 'Login' : 'Signup'),
-                          ),
+                          if (!_isAuthenticating)
+                            ElevatedButton(
+                              onPressed: _submit,
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer),
+                              child: Text(_isLogin ? 'Login' : 'Signup'),
+                            ),
+                          if (_isAuthenticating)
+                            const CircularProgressIndicator(),
                           TextButton(
                             onPressed: () {
                               setState(() {
