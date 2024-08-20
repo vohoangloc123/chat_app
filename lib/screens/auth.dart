@@ -34,15 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       return;
     }
-    // if (!isValid || (!_isLogin && _enteredUserName.trim().isEmpty)) {
-    //   print("username: $_enteredUserName");
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: Text('Please enter a username.'),
-    //     ),
-    //   );
-    //   return;
-    // }
+   
 
     _formKey.currentState?.save();
     setState(() {
