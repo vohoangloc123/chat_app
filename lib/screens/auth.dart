@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chat_app/widgets/user_image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,14 @@ class _AuthScreenState extends State<AuthScreen> {
         await storageRef.putFile(_selectedImage!);
         final imageUrl = await storageRef.getDownloadURL();
         print("get from fire storage" + imageUrl);
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(UserCredentials.user!.uid)
+            .set({
+          'username': 'to be done... ',
+          'email': _enteredEmail,
+          'image_url': imageUrl,
+        });
       } on FirebaseAuthException catch (error) {
         if (error.code == 'email-already-in-use') {
           // handle the error
