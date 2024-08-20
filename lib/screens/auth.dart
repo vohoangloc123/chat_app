@@ -20,6 +20,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>(); // create a global key
   var _enteredEmail = '';
   var _enteredPassword = '';
+  var _enteredUserName = '';
   File? _selectedImage;
   var _isAuthenticating = false;
   void _submit() async {
@@ -33,6 +34,16 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       return;
     }
+    // if (!isValid || (!_isLogin && _enteredUserName.trim().isEmpty)) {
+    //   print("username: $_enteredUserName");
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(
+    //       content: Text('Please enter a username.'),
+    //     ),
+    //   );
+    //   return;
+    // }
+
     _formKey.currentState?.save();
     setState(() {
       _isAuthenticating = true;
@@ -68,7 +79,7 @@ class _AuthScreenState extends State<AuthScreen> {
             .collection('users')
             .doc(UserCredentials.user!.uid)
             .set({
-          'username': 'to be done... ',
+          'username': _enteredUserName,
           'email': _enteredEmail,
           'image_url': imageUrl,
         });
@@ -142,6 +153,25 @@ class _AuthScreenState extends State<AuthScreen> {
                             },
                             onSaved: (newValue) => _enteredEmail = newValue!,
                           ),
+                          const SizedBox(height: 12),
+                          if (!_isLogin)
+                            TextFormField(
+                              decoration:
+                                  const InputDecoration(labelText: 'Username'),
+                              enableSuggestions: false,
+                              autocorrect: false,
+                              validator: (value) {
+                                if (value == null ||
+                                    value.trim().isEmpty ||
+                                    value.length < 4) {
+                                  return 'Please enter atleast 4 characters';
+                                }
+                                return null;
+                              },
+                              onSaved: (value) {
+                                _enteredUserName = value!;
+                              },
+                            ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: 'Password'),
