@@ -18,6 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
     await fcm.requestPermission();
     final token = await fcm.getToken();
     print('Token: $token'); // print the token to the console
+    fcm.subscribeToTopic('Chat'); // subscribe to the chat topic
   }
 
   @override
