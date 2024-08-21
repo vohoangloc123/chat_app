@@ -26,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
   void _submit() async {
     final isValid = _formKey.currentState?.validate();
     print("image path: $_selectedImage");
-    if (!isValid! || !_isLogin && _selectedImage == null) {
+    if (!_isLogin && _selectedImage == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please pick an image.'),
@@ -34,28 +34,19 @@ class _AuthScreenState extends State<AuthScreen> {
       );
       return;
     }
-   
 
     _formKey.currentState?.save();
     setState(() {
       _isAuthenticating = true;
     });
-    if (_isLogin) {
-      // login
-      try {
+    try {
+      if (_isLogin) {
+        // login
         final UserCredential = await _firebase.signInWithEmailAndPassword(
             email: _enteredEmail, password: _enteredPassword);
         print(UserCredential.user);
-      } on FirebaseAuthException catch (error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(error.message ?? 'Authentication failed'),
-          ),
-        );
-      }
-    } else {
-      // signup
-      try {
+      } else {
+        // signup
         final UserCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredEmail,
             password: _enteredPassword); // create a new user
@@ -75,19 +66,17 @@ class _AuthScreenState extends State<AuthScreen> {
           'email': _enteredEmail,
           'image_url': imageUrl,
         });
-      } on FirebaseAuthException catch (error) {
-        if (error.code == 'email-already-in-use') {
-          // handle the error
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(error.message ?? 'Authentication failed'),
-          ),
-        );
-        setState(() {
-          _isAuthenticating = true;
-        });
       }
+    } on FirebaseAuthException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message ?? 'Authentication failed'),
+        ),
+      );
+    } finally {
+      setState(() {
+        _isAuthenticating = false; // always reset _isAuthenticating to false
+      });
     }
   }
 
