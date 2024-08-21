@@ -74,9 +74,12 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       );
     } finally {
-      setState(() {
-        _isAuthenticating = false; // always reset _isAuthenticating to false
-      });
+      if (mounted) {
+        setState(() {
+          _isAuthenticating =
+              false; // Luôn đặt lại _isAuthenticating thành false
+        });
+      }
     }
   }
 

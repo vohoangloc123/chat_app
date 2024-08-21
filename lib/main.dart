@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme(
           brightness: Brightness.light, // hoặc Brightness.dark
           primary: const Color.fromARGB(
-              255, 0, 180, 216), //Màu nền: Sử dụng màu primary.
+              255, 31, 200, 233), //Màu nền: Sử dụng màu primary.
           onPrimary: Colors.white, //Màu chữ: Sử dụng màu onPrimary.
           secondary: const Color.fromARGB(255, 202, 240, 248),
           onSecondary: Colors.white,
