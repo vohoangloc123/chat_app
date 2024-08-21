@@ -26,10 +26,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Chat App',
-      theme: ThemeData().copyWith(
+      theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 63, 17, 177),
+        colorScheme: ColorScheme(
+          brightness: Brightness.light, // hoặc Brightness.dark
+          primary: const Color.fromARGB(
+              255, 0, 180, 216), //Màu nền: Sử dụng màu primary.
+          onPrimary: Colors.white, //Màu chữ: Sử dụng màu onPrimary.
+          secondary: const Color.fromARGB(255, 202, 240, 248),
+          onSecondary: Colors.white,
+          background: Colors.grey[200]!,
+          onBackground: Colors.black,
+          surface: const Color.fromARGB(255, 0, 119, 182),
+          onSurface: Colors.black,
+          error: Colors.red,
+          onError: Colors.white,
         ),
       ),
       home: StreamBuilder(

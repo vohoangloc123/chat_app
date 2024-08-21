@@ -100,6 +100,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Image.asset('assets/images/chat.png'),
               ),
               Card(
+                color: Theme.of(context).colorScheme.secondary,
                 margin: const EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   child: Padding(
@@ -172,9 +173,15 @@ class _AuthScreenState extends State<AuthScreen> {
                             ElevatedButton(
                               onPressed: _submit,
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .primaryContainer),
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .primary, // Màu nền của nút chính
+                                foregroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimary, // Màu chữ trên nút chính
+                                elevation:
+                                    5, // Độ cao của nút (có thể điều chỉnh theo ý muốn)
+                              ),
                               child: Text(_isLogin ? 'Login' : 'Signup'),
                             ),
                           if (_isAuthenticating)

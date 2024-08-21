@@ -31,13 +31,15 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       appBar: AppBar(
-        title: const Text('Chat'),
+        title: const Text('Chat', style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.white,
             ),
             onPressed: () {
               // sign out the user
