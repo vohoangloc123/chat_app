@@ -48,13 +48,22 @@ class _NewMessageState extends State<NewMessage> {
           Expanded(
             child: TextField(
               controller: _messageController,
-              decoration: InputDecoration(labelText: 'Send a message...'),
+              decoration: InputDecoration(
+                labelText: 'Send a message...',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface), // Màu của đường gạch dưới khi không focus
+                ),
+              ),
               autocorrect: true,
               enableSuggestions: true,
+              style: TextStyle(color: Theme.of(context).colorScheme.surface),
             ),
           ),
           IconButton(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onSurface,
             icon: const Icon(Icons.send),
             onPressed: _submitMessage,
           ),

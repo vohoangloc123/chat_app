@@ -141,8 +141,16 @@ class _AuthScreenState extends State<AuthScreen> {
                               textAlign: TextAlign.center,
                             ),
                           TextFormField(
-                            decoration: const InputDecoration(
-                                labelText: 'Email Address'),
+                            decoration: InputDecoration(
+                              labelText: 'Email Address',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface), // Màu của đường gạch dưới khi không focus
+                              ),
+                            ),
+
                             keyboardType:
                                 TextInputType.emailAddress, // email keyboard
                             autocorrect: false, // disable auto-correct
@@ -162,8 +170,15 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(height: 12),
                           if (!_isLogin)
                             TextFormField(
-                              decoration:
-                                  const InputDecoration(labelText: 'Username'),
+                              decoration: InputDecoration(
+                                labelText: 'Username',
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                                ),
+                              ),
                               enableSuggestions: false,
                               autocorrect: false,
                               validator: (value) {
@@ -179,8 +194,15 @@ class _AuthScreenState extends State<AuthScreen> {
                               },
                             ),
                           TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Password'),
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
+                              ),
+                            ),
                             obscureText: true, // hide text,
                             validator: (value) {
                               if (value == null ||

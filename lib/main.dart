@@ -31,14 +31,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme(
           brightness: Brightness.light, // hoặc Brightness.dark
           primary: const Color.fromARGB(
-              255, 31, 200, 233), //Màu nền: Sử dụng màu primary.
+              255, 120, 170, 255), //Màu nền: Sử dụng màu primary.
           onPrimary: Colors.white, //Màu chữ: Sử dụng màu onPrimary.
-          secondary: const Color.fromARGB(255, 202, 240, 248),
+          secondary: const Color.fromARGB(255, 187, 210, 251),
           onSecondary: Colors.white,
           background: Colors.grey[200]!,
           onBackground: Colors.black,
           surface: const Color.fromARGB(255, 0, 119, 182),
-          onSurface: Colors.black,
+          onSurface: const Color.fromARGB(255, 65, 136, 255),
           error: Colors.red,
           onError: Colors.white,
         ),
